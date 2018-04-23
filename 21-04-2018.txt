@@ -1,0 +1,168 @@
+ 3-7W0B9HF (remove backup volume from orchestration from the listed VMs - DKUPSFTPRD)
+ remove backup volume from orchestration from the listed VMs    
+oc-129-150-68-228.compute.oraclecloud.com - 129.150.68.228
+omcsbabihigzdh.compute-a476291.oraclecloud.internal.
+a476291
+
+/Compute-a476291/orchestration/DKUPSFTPRD-MT001/679e21ec-ac40-40f5-9374-387cfe5daa53/d1728bf8-e853-4729-9ba0-1076c6f480bc
+/Compute-a476291/orchestration/DKUPSFTPRD-MT001-orch
+/Compute-a476291/orchestration/DKUPSFTPRD-MT001-backup01 - 70 GB
+
+sec list attached:
+==================
+SL-DKUP-PRD-MT001
+SL-DKUP-SHARED-SS001
+
+
+[root@omcsbabihigzdh ~]# ls -l /etc/exports.d/
+total 24
+-rw-r--r--. 1 root root 97 Aug  9  2017 dkupcprd-lnxdb-1.compute-a476291.oraclecloud.internal.exports - 129.150.67.191
+-rw-r--r--. 1 root root 97 Aug  9  2017 dkupcprd-lnxes-4.compute-a476291.oraclecloud.internal.exports - 129.150.67.183
+-rw-r--r--. 1 root root 86 Dec 19 15:28 dkupcprd-lnxmt-2.compute-a476291.oraclecloud.internal.exports - 129.150.68.107
+-rw-r--r--. 1 root root 87 Mar  2 16:01 dkupcprd-lnxotd-5.compute-a476291.oraclecloud.internal.exports - 129.150.71.101
+-rw-r--r--. 1 root root 87 Mar  2 16:34 dkupcprd-lnxotd-6.compute-a476291.oraclecloud.internal.exports - 129.150.71.108
+-rw-r--r--. 1 root root 97 Sep 13  2017 dkupcprd-winwc-3.compute-a476291.oraclecloud.internal.exports - oc-129-150-67-102.compute.oraclecloud.com
+[root@omcsbabihigzdh ~]#
+
+
+
+start blackout 3-7W0B9HF
+su -l emcadm  -c '/oem/emagent/agent_inst/bin/emctl start blackout "3-7W0B9HF" -nodeLevel -d 120'
+
+[root@omcsbabihigzdh ~]# su -l emcadm  -c '/oem/emagent/agent_inst/bin/emctl start blackout "3-7W0B9HF" -nodeLevel -d 120'
+Oracle Enterprise Manager Cloud Control 13c Release 2
+Copyright (c) 1996, 2016 Oracle Corporation.  All rights reserved.
+Blackout 3-7W0B9HF added successfully
+EMD reload completed successfully
+[root@omcsbabihigzdh ~]#
+
+
+###################################################################################
+3-17332248431
+
+Please help us to take a code tree backup for EBS MT for FNACEBSPR1 Servers:
+
+MT Name          Ips           Servername
+=========        ======        ===========
+FNACEBSPR1-MT002 129.150.81.80 oc-129-150-81-80.compute.oraclecloud.com - omcsbablefaddm
+FNACEBSPR1-MT004 129.150.81.88 oc-129-150-81-88.compute.oraclecloud.com - omcsbabuihixgb
+FNACEBSPR1-OTD001 129.150.81.122 oc-129-150-81-122.compute.oraclecloud.com - omcsbabnzojenx
+FNACEBSPR1-MT001 129.150.81.34 oc-129-150-81-34.compute.oraclecloud.com - omcsbabwlxexdg
+FNACEBSPR1-MT003 129.150.81.154 oc-129-150-81-154.compute.oraclecloud.com - omcsbabyewackh
+
+
+####################################################################################
+ACOR_arcorms2_NPWIN_vmjdacorp112 - 129.191.173.170
+
+PS C:\Users\Administrator> vssadmin list writers
+vssadmin 1.1 - Volume Shadow Copy Service administrative command-line tool
+(C) Copyright 2001-2005 Microsoft Corp.
+
+Writer name: 'Task Scheduler Writer'
+   Writer Id: {d61d61c8-d73a-4eee-8cdd-f6f9786b7124}
+   Writer Instance Id: {1bddd48e-5052-49db-9b07-b96f96727e6b}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'VSS Metadata Store Writer'
+   Writer Id: {75dfb225-e2e4-4d39-9ac9-ffaff65ddf06}
+   Writer Instance Id: {088e7a7d-09a8-4cc6-a609-ad90e75ddc93}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'Performance Counters Writer'
+   Writer Id: {0bada1de-01a9-4625-8278-69e735f39dd2}
+   Writer Instance Id: {f0086dda-9efc-47c5-8eb6-a944c3d09381}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'System Writer'
+   Writer Id: {e8132975-6f93-4464-a53e-1050253ae220}
+   Writer Instance Id: {81ab9821-d147-43d0-ae55-7834c082c926}
+   State: [7] Failed
+   Last error: Timed out
+
+Writer name: 'ASR Writer'
+   Writer Id: {be000cbe-11fe-4426-9c58-531aa6355fc4}
+   Writer Instance Id: {5790796a-3cc8-4450-b51d-64323c2b4d31}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'BITS Writer'
+   Writer Id: {4969d978-be47-48b0-b100-f328f07ac1e0}
+   Writer Instance Id: {04adcf65-fe8c-4ede-bc7c-4e3b6df73e66}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'Shadow Copy Optimization Writer'
+   Writer Id: {4dc3bdd4-ab48-4d07-adb0-3bee2926fd7f}
+   Writer Instance Id: {f42e706c-b621-47b9-9650-ea3e1404c5d5}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'WMI Writer'
+   Writer Id: {a6ad56c2-b509-4e6c-bb19-49d8f43532f0}
+   Writer Instance Id: {228d0b2a-c82f-4e9c-8631-c06cfadbacd3}
+   State: [7] Failed
+   Last error: Timed out
+
+Writer name: 'COM+ REGDB Writer'
+   Writer Id: {542da469-d3e1-473c-9f4f-7847f01fc64f}
+   Writer Instance Id: {15ebf612-965a-4d78-80d8-fd6ac9faa711}
+   State: [1] Stable
+   Last error: No error
+
+Writer name: 'Registry Writer'
+   Writer Id: {afbab4a2-367d-4d15-a586-71dbb18f8485}
+   Writer Instance Id: {b1cd43af-8cff-42d8-9e1f-859050d1b917}
+   State: [1] Stable
+   Last error: No error
+
+PS C:\Users\Administrator>
+
+
+
+Error Code: [19:1253] Description: Number of restarts has exceeded the maximum number allowed [5]. Source: OMCS_a422906_CS_01, Process: JobManager  Error Code: [17:55] Description: Failed to create a VSS snapshot required to run a system state backup; marking the backup job failed. Source: ACOR_arcorms2_NPWIN_vmjdacorp112, Process: FileScan  
+
+######################################################################
+Hi Team,
+
+We have received backup failures for few clients.When we checked the log file "cvfwd.log" we found we are getting the below error very frequently.
+We have verified the port connectivity between client and media agent,everything looks fine.We are suspecting backup is getting failed due to this errors.
+Could you please check and let us know any impact on backup due to this  error.
+
+Reference client:CTEC_a424951_PWIN_omcsbabzdsnzmi
+Media agent:CTEC_a424951_MA_omcsbabmfvrjcd
+Commserve:OMCS_a422906_CS_01
+
+
+
+####### ERROR: cvfwd_reset_tunnel(): Resetting PERSISTENT tunnel from "CTEC_a424951_PWIN_omcsbabzdsnzmi" to "CTEC_a424951_MA_omcsbabmfvrjcd" via (ANY, 10.16.176.234)
+9516 0b9c 04/17 06:48:28 TN:00005 ######## ERROR: cvfwd_reset_tunnel(): Resetting PERSISTENT tunnel from "CTEC_a424951_PWIN_omcsbabzdsnzmi" to "CTEC_a424951_MA_omcsbabwzfdpno" via (ANY, 10.16.210.102)
+9516 0b9c 04/17 06:48:28 TN:00006 ######## ERROR: cvfwd_reset_tunnel(): Resetting PERSISTENT tunnel from "CTEC_a424951_PWIN_omcsbabzdsnzmi" to "omcsbabmfvrjcd" via (ANY, 10.16.176.234)
+
+
+PS C:\Users\jmutt.CALYPSO> tnc omcsbabmfvrjcd -port 8400
+WARNING: Ping to omcsbabmfvrjcd failed -- Status: TimedOut
+
+ComputerName           : omcsbabmfvrjcd
+RemoteAddress          : 10.16.176.234
+RemotePort             : 8400
+InterfaceAlias         : Ethernet 4
+SourceAddress          : 10.29.6.126
+PingSucceeded          : False
+PingReplyDetails (RTT) : 0 ms
+TcpTestSucceeded       : True
+
+
+PS C:\Users\jmutt.CALYPSO> tnc omcsbabmfvrjcd -port 8403
+WARNING: Ping to omcsbabmfvrjcd failed -- Status: TimedOut
+
+ComputerName           : omcsbabmfvrjcd
+RemoteAddress          : 10.16.176.234
+RemotePort             : 8403
+InterfaceAlias         : Ethernet 4
+SourceAddress          : 10.29.6.126
+PingSucceeded          : False
+PingReplyDetails (RTT) : 0 ms
+TcpTestSucceeded       : True
