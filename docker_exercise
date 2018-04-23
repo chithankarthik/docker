@@ -1,0 +1,220 @@
+container path :/var/lib/docker/containers
+
+
+root@ubuntu:~# docker pull ubuntu:14.04
+14.04: Pulling from library/ubuntu
+c2c80a08aa8c: Pull complete
+6ace04d7a4a2: Pull complete
+f03114bcfb25: Pull complete
+99df43987812: Pull complete
+9c646cd4d155: Pull complete
+Digest: sha256:b92dc7814b2656da61a52a50020443223445fdc2caf1ea0c51fa38381d5608ad
+Status: Downloaded newer image for ubuntu:14.04
+root@ubuntu:~#
+root@ubuntu:~#
+root@ubuntu:~#
+root@ubuntu:~# docker image  ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+new_python          latest              e738fbaf25a7        3 days ago          691MB
+python              latest              e738fbaf25a7        3 days ago          691MB
+pythondoc           latest              e738fbaf25a7        3 days ago          691MB
+centos              latest              e382ef0a53fa        3 days ago          248MB
+centos_latest       latest              e27b311e07fe        3 days ago          248MB
+ubuntu              14.04               3b853789146f        7 days ago          223MB
+hello-world         latest              e38bc07ac18e        8 days ago          1.85kB
+centos              <none>              e934aafc2206        13 days ago         199MB
+python              3                   efb6baa1169f        2 weeks ago         691MB
+root@ubuntu:~#
+
+
+root@ubuntu:~# docker run -ti ubuntu:14.04 /bin/bash
+root@928b532c6c59:/#
+root@928b532c6c59:/#
+root@928b532c6c59:/#
+root@928b532c6c59:/# ps -ef
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 17:16 pts/0    00:00:00 /bin/bash
+root        14     1  0 17:16 pts/0    00:00:00 ps -ef
+root@928b532c6c59:/#
+
+
+To start the container in detached mode:
+======================================
+root@ubuntu:~# docker run -d -ti ubuntu:14.04 /bin/bash
+9b27bf5a96c2722493d0dbe50ff91252875d6895e0fd8e22039324462ad0663e
+root@ubuntu:~#
+
+
+-d - for starting container in detached mode
+
+
+root@ubuntu:~# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+9b27bf5a96c2        ubuntu:14.04        "/bin/bash"         8 seconds ago       Up 7 seconds                            upbeat_benz
+root@ubuntu:~#
+
+
+Attach a running container:
+==========================
+root@ubuntu:~# docker attach upbeat_benz
+
+root@9b27bf5a96c2:/#
+
+
+
+Volume:
+========
+Here whatever the data changes we made on the writeable container layer will be last once we come out of the container.
+To persist this change we have to use docker volumes.
+
+
+root@ubuntu:~# docker run -ti -v /mydata --name=oracle ubuntu:14.04 /bin/bash
+root@4d4a97689077:/#
+root@4d4a97689077:/#
+
+Inside container:
+---------------------
+root@4d4a97689077:/# cd /mydata/
+root@4d4a97689077:/mydata# ls -l
+total 0
+root@4d4a97689077:/mydata#
+root@4d4a97689077:/mydata#
+root@4d4a97689077:/mydata# touch a b c d 1 2 3
+root@4d4a97689077:/mydata#
+root@4d4a97689077:/mydata#
+root@4d4a97689077:/mydata# ls -l
+total 0
+-rw-r--r-- 1 root root 0 Apr 20 17:52 1
+-rw-r--r-- 1 root root 0 Apr 20 17:52 2
+-rw-r--r-- 1 root root 0 Apr 20 17:52 3
+-rw-r--r-- 1 root root 0 Apr 20 17:52 a
+-rw-r--r-- 1 root root 0 Apr 20 17:52 b
+-rw-r--r-- 1 root root 0 Apr 20 17:52 c
+-rw-r--r-- 1 root root 0 Apr 20 17:52 d
+
+root@4d4a97689077:/mydata#exit
+
+
+In host OS:
+--------------
+
+root@ubuntu:/var/lib/docker/volumes# ls -ltrh
+total 32K
+drwxr-xr-x 3 root root 4.0K Apr 19 23:43 myvol2
+-rw------- 1 root root  32K Apr 20 23:22 metadata.db
+drwxr-xr-x 3 root root 4.0K Apr 20 23:22 6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6
+root@ubuntu:/var/lib/docker/volumes#
+root@ubuntu:/var/lib/docker/volumes#
+root@ubuntu:/var/lib/docker/volumes# cd 6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6
+root@ubuntu:/var/lib/docker/volumes/6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6# ls -l
+total 4
+drwxr-xr-x 2 root root 4096 Apr 20 23:22 _data
+root@ubuntu:/var/lib/docker/volumes/6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6#
+root@ubuntu:/var/lib/docker/volumes/6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6# cd _data/
+root@ubuntu:/var/lib/docker/volumes/6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6/_data# ls -l
+total 0
+-rw-r--r-- 1 root root 0 Apr 20 23:22 1
+-rw-r--r-- 1 root root 0 Apr 20 23:22 2
+-rw-r--r-- 1 root root 0 Apr 20 23:22 3
+-rw-r--r-- 1 root root 0 Apr 20 23:22 a
+-rw-r--r-- 1 root root 0 Apr 20 23:22 b
+-rw-r--r-- 1 root root 0 Apr 20 23:22 c
+-rw-r--r-- 1 root root 0 Apr 20 23:22 d
+root@ubuntu:/var/lib/docker/volumes/6365a1087dcc19757a0a19e0b8acba4834f058eec21421711e7ca946877eecb6/_data#
+
+we can map the host OS mount point to docker volumes like below.
+----------------------------------------------------------------------------------------
+root@ubuntu:/# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+pythondoc           latest              e738fbaf25a7        3 days ago          691MB
+ubuntu              14.04               3b853789146f        7 days ago          223MB
+hello-world         latest              e38bc07ac18e        9 days ago          1.85kB
+root@ubuntu:/#
+root@ubuntu:/#
+root@ubuntu:/# docker run -ti -v /home/chithan/owndata:/data --name:oracle ubuntu:14.04 /bin/bash
+
+In container:
+-------------
+root@cb0a0d19ed7c:/# cd data/
+root@cb0a0d19ed7c:/data# ls -l
+total 0
+root@cb0a0d19ed7c:/data#
+root@cb0a0d19ed7c:/data#
+root@cb0a0d19ed7c:/data#
+root@cb0a0d19ed7c:/data# touch 1 2 3
+root@cb0a0d19ed7c:/data#
+root@cb0a0d19ed7c:/data#
+root@cb0a0d19ed7c:/data# exit
+
+
+In host OS:
+--------------
+root@ubuntu:/# cd /home/chithan/owndata/
+root@ubuntu:/home/chithan/owndata# ls -l
+total 0
+-rw-r--r-- 1 root root 0 Apr 20 23:28 1
+-rw-r--r-- 1 root root 0 Apr 20 23:28 2
+-rw-r--r-- 1 root root 0 Apr 20 23:28 3
+root@ubuntu:/home/chithan/owndata#
+
+
+
+How to connect the container which is running:
+===================================
+root@ubuntu:/#docker start oracle
+
+
+root@ubuntu:~# docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+9b27bf5a96c2        ubuntu:14.04        "/bin/bash"         8 seconds ago       Up 7 seconds                            upbeat_benz
+root@ubuntu:~#
+
+root@ubuntu:/# docker exec -it oracle bash
+
+root@cb0a0d19ed7c:/#
+
+To check which host OS mount point is mapped with container:
+============================================================
+root@ubuntu:~# docker inspect oracle1
+
+ "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/home/chithan/owndata",
+                "Destination": "/data",
+                "Mode": "",
+                "RW": true,
+                "Propagation": "rprivate"
+            }
+
+
+############################################################################
+
+Build a docker image and run using volume:
+=================================
+
+root@ubuntu:/docker_project/docker_python# docker build -t pyhton_volume .
+
+root@ubuntu:/docker_project/docker_python# docker run -ti -v /home/chithan/owndata:/data --name=pyhton_volume1 pyhton_volume
+Hi this is my first docker testing
+This is modified python program
+root@ubuntu:/docker_project/docker_python#
+
+
+root@ubuntu:/docker_project/docker_python# cat Dockerfile
+FROM python:3
+WORKDIR /data
+CMD ["python", "test.py" ]
+root@ubuntu:/docker_project/docker_python#
+
+
+root@ubuntu:/docker_project/docker# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+pyhton_volume       latest              99ccd41aae4e        2 hours ago         691MB
+ubuntu              14.04               3b853789146f        10 days ago         223MB
+hello-world         latest              e38bc07ac18e        11 days ago         1.85kB
+root@ubuntu:/docker_project/docker#
+
+
+
+
