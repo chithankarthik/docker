@@ -10,6 +10,35 @@ drwxr-xr-x 3 root root 4.0K Apr 23 19:05 docker_python
 root@ubuntu:/docker_project/docker#
 root@ubuntu:/docker_project/docker#
 root@ubuntu:/docker_project/docker#
+root@ubuntu:/docker_project/docker# git checkout -b my_exercise
+Switched to a new branch 'my_exercise'
+root@ubuntu:/docker_project/docker#
+
+root@ubuntu:/docker_project/docker# git branch
+  master
+* my_exercise
+root@ubuntu:/docker_project/docker#
+
+[my_exercise 730257b] change git_exercise file
+ 1 file changed, 25 insertions(+)
+root@ubuntu:/docker_project/docker#
+
+
+Inside branch my_exercise  content of git_exercise file:
+=========================================
+root@ubuntu:/docker_project/docker# cat git_exercise
+root@ubuntu:/docker_project/docker# ls -ltrh
+total 28K
+drwxr-xr-x 3 root root 4.0K Apr 23 19:05 docker_python
+-rw-r--r-- 1 root root   44 Apr 23 19:47 test.py
+-rw-r--r-- 1 root root    0 Apr 23 19:56 test
+-rw-r--r-- 1 root root   43 Apr 23 19:57 README.md
+-rw-r--r-- 1 root root 7.7K Apr 24 00:00 docker_exercise
+-rw-r--r-- 1 root root    0 Apr 24 00:01 git_exercise
+-rw-r--r-- 1 root root 7.2K Apr 24 00:15 21-04-2018.txt
+root@ubuntu:/docker_project/docker#
+root@ubuntu:/docker_project/docker#
+root@ubuntu:/docker_project/docker#
 
 Creating branch my_exercise:
 ===========================
@@ -22,4 +51,44 @@ To list the branches:
 root@ubuntu:/docker_project/docker# git branch
   master
 * my_exercise
+root@ubuntu:/docker_project/docker#
+
+
+Merge the my_exercise branch content to master:
+======================================
+root@ubuntu:/docker_project/docker# git merge my_exercise
+Updating 02f71d1..730257b
+Fast-forward
+ git_exercise | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+root@ubuntu:/docker_project/docker#
+
+
+root@ubuntu:/docker_project/docker# git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+nothing to commit, working directory clean
+root@ubuntu:/docker_project/docker#
+
+
+root@ubuntu:/docker_project/docker# git push
+Warning: Permanently added the RSA host key for IP address '192.30.255.113' to the list of known hosts.
+Counting objects: 3, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 552 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To git@github.com:chithankarthik/docker.git
+   02f71d1..730257b  master -> master
+root@ubuntu:/docker_project/docker#
+
+Push the branch to github:
+====================
+root@ubuntu:/docker_project/docker# git push -u origin my_exercise
+Warning: Permanently added the RSA host key for IP address '192.30.255.112' to the list of known hosts.
+Total 0 (delta 0), reused 0 (delta 0)
+To git@github.com:chithankarthik/docker.git
+ * [new branch]      my_exercise -> my_exercise
+Branch my_exercise set up to track remote branch my_exercise from origin.
 root@ubuntu:/docker_project/docker#
