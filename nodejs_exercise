@@ -1,0 +1,83 @@
+
+root@ubuntu:/docker_project/docker# git clone https://github.com/heroku/node-js-sample.git
+Cloning into 'node-js-sample'...
+remote: Counting objects: 410, done.
+remote: Total 410 (delta 0), reused 0 (delta 0), pack-reused 410
+Receiving objects: 100% (410/410), 214.85 KiB | 131.00 KiB/s, done.
+Resolving deltas: 100% (65/65), done.
+Checking connectivity... done.
+root@ubuntu:/docker_project/docker#
+
+root@ubuntu:/docker_project/docker# cd node-js-sample
+root@ubuntu:/docker_project/docker/node-js-sample# ls -ltrh
+total 28K
+-rw-r--r-- 1 root root  263 Apr 25 13:01 Dockerfile
+-rw-r--r-- 1 root root 1.3K Apr 25 19:06 README.md
+drwxr-xr-x 2 root root 4.0K Apr 25 19:06 public
+-rw-r--r-- 1 root root   20 Apr 25 19:06 Procfile
+-rw-r--r-- 1 root root  575 Apr 25 19:06 package.json
+-rw-r--r-- 1 root root  338 Apr 25 19:06 index.js
+-rw-r--r-- 1 root root  273 Apr 25 19:06 app.json
+root@ubuntu:/docker_project/docker/node-js-sample#
+
+Docker file:
+===========
+root@ubuntu:/docker_project/docker/node-js-sample# cat Dockerfile
+#Installing latest nodejs application package
+FROM node:4
+
+#Changing working directory as /app
+WORKDIR /app
+
+#pakage.json file have the application
+COPY package*.json .
+
+#Building modules
+RUN npm install
+
+COPY . /app
+
+EXPOSE 5000
+
+CMD [ "npm", "start" ]
+
+root@ubuntu:/docker_project/docker/node-js-sample#
+
+
+building nodeapp image:
+=======================
+root@ubuntu:/docker_project/docker/node-js-sample# docker build -t nodejsapp .
+Sending build context to Docker daemon  288.8kB
+Step 1/7 : FROM node:4
+4: Pulling from library/node
+f2b6b4884fc8: Already exists
+4fb899b4df21: Already exists
+74eaa8be7221: Already exists
+2d6e98fe4040: Already exists
+452c06dec5fa: Pull complete
+7b3c215894de: Pull complete
+f5296c631dff: Pull complete
+
+
+create nodejs app container:
+============================
+root@ubuntu:/docker_project/docker/node-js-sample# docker run -it -p 8080:5000 --name=samplenodeapp nodejsapp
+
+> node-js-sample@0.2.0 start /app
+> node index.js
+
+Node app is running at localhost:5000
+
+^Croot@ubuntu:/docker_project/docker/node-js-sample#
+
+
+Output:
+=======
+root@ubuntu:~# curl localhost:5000
+Hello World!
+
+root@ubuntu:~#
+root@ubuntu:~#
+
+
+
