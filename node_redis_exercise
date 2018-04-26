@@ -1,0 +1,54 @@
+
+
+root@ubuntu:/docker_project/docker/nodejs-redis-example# docker build -t newnode .
+Sending build context to Docker daemon  100.4kB
+Step 1/2 : FROM node:0.10.36-onbuild
+0.10.36-onbuild: Pulling from library/node
+
+
+root@ubuntu:/docker_project/docker/redis/4.0# docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+redis               latest              5a8a7b4500d2        14 seconds ago      107MB
+newnode             latest              7418aa8d142d        40 minutes ago      699MB
+nodejsapp           latest              6ea17c3718d7        23 hours ago        658MB
+pyhton_volume       latest              99ccd41aae4e        3 days ago          691MB
+ubuntu              14.04               3b853789146f        13 days ago         223MB
+hello-world         latest              e38bc07ac18e        2 weeks ago         1.85kB
+node                4                   84f3f48e32b5        3 weeks ago         653MB
+debian              jessie-slim         610b2895086b        6 weeks ago         79.2MB
+node                0.10.36-onbuild     c1eaee2b6d8d        3 years ago         697MB
+root@ubuntu:/docker_project/docker/redis/4.0#
+
+
+
+docker run -d --name redis -p 6379:6379 redis
+
+
+root@ubuntu:/docker_project/docker/redis/4.0# docker run -d --name redis -p 6379:6379 redis
+21f6ace941cd71f0a25c20eb99e0fe6a65acbadd58a4a6ef2a139a1c1a224397
+root@ubuntu:/docker_project/docker/redis/4.0#
+
+
+docker run -d --name node_redis -p 3000:3000 --link redis:redis newnode
+
+Link syntax:
+============
+--link container_name:link_name
+
+
+
+root@ubuntu:/docker_project/docker/nodejs-redis-example# docker run --rm --name node_redis -p 3000:3000 --link redis:redis newnode
+
+> nodejs-redis-example@0.0.1 start /app
+> node index.js
+
+Server listening on port 3000
+
+
+root@ubuntu:/docker_project/docker/node-js-sample# curl localhost:3000
+Total requests: 20
+
+App server:
+  - hostname: 3d16133bd541
+root@ubuntu:/docker_project/docker/node-js-sample#
+
