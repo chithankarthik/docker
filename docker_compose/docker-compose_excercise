@@ -1,0 +1,44 @@
+Install docker compose:
+=======================
+
+sudo curl -L https://github.com/docker/compose/releases/download/1.21.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+$ docker-compose --version
+docker-compose version 1.21.0, build 1719ceb
+
+#############################################################
+
+Run docker compose:
+===================
+root@ubuntu:/docker_project/docker/docker_compose# docker-compose up
+Creating network "docker_compose_default" with the default driver
+Creating docker_compose_web_1   ... done
+Creating docker_compose_redis_1 ... done
+Attaching to docker_compose_redis_1, docker_compose_web_1
+redis_1  | 1:C 09 May 13:12:57.125 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+
+Run docker compose in detached mode:
+====================================
+root@ubuntu:/docker_project/docker/docker_compose# docker-compose up -d
+Starting docker_compose_redis_1 ... done
+Starting docker_compose_web_1   ... done
+root@ubuntu:/docker_project/docker/docker_compose#
+
+Stop docker compose:
+====================
+root@ubuntu:/docker_project/docker/docker_compose# docker-compose stop
+Stopping docker_compose_web_1   ... done
+Stopping docker_compose_redis_1 ... done
+
+
+To down the volumes used by docker containers:
+===============================================
+root@ubuntu:/docker_project/docker/docker_compose# docker-compose down --volumes
+Removing docker_compose_web_run_1 ... done
+Removing docker_compose_web_1     ... done
+Removing docker_compose_redis_1   ... done
+Removing network docker_compose_default
+root@ubuntu:/docker_project/docker/docker_compose#
+
